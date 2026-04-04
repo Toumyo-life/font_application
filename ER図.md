@@ -41,16 +41,16 @@
 - 画像ファイルはActive Storageで管理
 - svg_fileとpng_fileの2種類のファイルを添付可能
 
-#### tagsテーブル
-- id : integer / Tagsテーブルのid(主キー)
-- tags_name : string/ タグ名
-- created_at：datetime /作成日
-- updated_at：datetime /更新日
-
 #### font_design_tags(中間テーブル)
 - id : integer / Font_design_tagsテーブルのid(主キー)
 - font_design_id : integer / 外部キー(FK → font_designs.id)
 - tag_id：integer/ (FK → Tags.id)
+- created_at：datetime /作成日
+- updated_at：datetime /更新日
+
+#### tagsテーブル
+- id : integer / Tagsテーブルのid(主キー)
+- tags_name : string/ タグ名
 - created_at：datetime /作成日
 - updated_at：datetime /更新日
 

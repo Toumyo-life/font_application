@@ -66,7 +66,9 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: mysql2://root@127.0.0.1:3306/font_application_test
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_USERNAME: root
+          DATABASE_PASSWORD: ""
         run: bin/rails db:test:prepare test test:system
 
       - name: Keep screenshots from failed system tests

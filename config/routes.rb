@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   root "font_designs#index"
 
   # ログイン/ログアウト用(次のステップで必要)
-  get 'login', to: 'sessions#new'
+  get "login", to: "sessions#new"
 end

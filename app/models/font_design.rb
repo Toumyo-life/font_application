@@ -4,6 +4,7 @@ class FontDesign < ApplicationRecord
   has_one_attached :svg_file
   has_one_attached :png_file
   has_many :font_design_tags, dependent: :destroy
+  has_many :tags, through: :font_design_tags
 
   validate :svg_or_png_present
 

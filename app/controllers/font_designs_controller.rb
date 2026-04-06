@@ -11,4 +11,7 @@ class FontDesignsController < ApplicationController
     end
     @font_design = FontDesign.new
   end
+
+  def show
+  end
 end

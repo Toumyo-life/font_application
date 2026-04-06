@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <h1>フォントデザイン詳細</h1>
+  
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">フォントデザイン<%= @font_design.id %></h5>
+      
+      <!-- PNG画像を表示 -->
+      <div class="mb-4">
+        <h6>PNG画像</h6>
+        <% if @font_design.png_file.attached? %>
+          <div class="mb-3">
+            <%= image_tag @font_design.png_file, class: "img-fluid border", alt: "フォントデザイン", style: "max-width: 600px;" %>
+          </div>
+          <p class="text-muted">
+            ファイル名: <%= @font_design.png_file.filename %><br>
+            サイズ: <%= number_to_human_size(@font_design.png_file.byte_size) %><br>
+            <%= link_to "ダウンロード", rails_blob_path(@font_design.png_file, disposition: "attachment"), class: "btn btn-sm btn-info" %>
+          </p>
+        <% else %>
+          <p class="text-muted">PNG画像は添付されていません</p>
+        <% end %>
+      </div>
+      
+      <!-- SVG/AI画像の情報 -->
+      <div class="mb-4">
+        <h6>SVG/AIファイル</h6>
+
+        <% if @font_design.svg_file.attached? %>
+
+          <% if @font_design.svg_file.content_type == 'image/svg+xml' %>
+            <div class="mb-3">
+              <%= image_tag @font_design.svg_file, class: "img-fluid border", style: "max-width: 600px;" %>
+            </div>
+          <% else %>
+            <p class="text-muted">AIファイルはブラウザで表示できません</p>
+          <% end %>
+
+          <p class="text-muted">
+            ファイル名: <%= @font_design.svg_file.filename %><br>
+            サイズ: <%= number_to_human_size(@font_design.svg_file.byte_size) %><br>
+            <%= link_to "ダウンロード", rails_blob_path(@font_design.svg_file, disposition: "attachment"), class: "btn btn-primary" %>
+          </p>
+
+        <% else %>
+          <p class="text-muted">SVG/AIファイルは添付されていません</p>
+        <% end %>
+
+      </div> 
+    </div>  
+  </div>
+</div>

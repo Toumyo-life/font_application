@@ -39,5 +39,4 @@ class FontDesign < ApplicationRecord
       errors.add(:base, "SVGまたはPNGファイルを1つ以上アップロードしてください")
     end
   end
-end   
-
+end

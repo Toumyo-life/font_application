@@ -19,25 +19,25 @@ class FontDesign < ApplicationRecord
             if: -> { png_file.attached? }
   private
 
-    def acceptable_image_file
-      return unless image_file.attached?
+  def acceptable_image_file
+    return unless image_file.attached?
 
-      # ファイルサイズのチェック
-      unless image_file.byte_size <= 10.megabytes
-        errors.add(:image_file, "は10MB以下にしてください")
-      end
+    # ファイルサイズのチェック
+    unless image_file.byte_size <= 10.megabytes
+      errors.add(:image_file, "は10MB以下にしてください")
+  end
 
-      # 拡張子のチェック
-      acceptable_types = %w[.svg .png .ai]
-      unless acceptable_types.include?(File.extname(image_file.filename.to_s).downcase)
-        errors.add(:image_file, "はSVG、PNG、AIファイルのみアップロード可能です")
-      end
+    # 拡張子のチェック
+    acceptable_types = %w[.svg .png .ai]
+    unless acceptable_types.include?(File.extname(image_file.filename.to_s).downcase)
+      errors.add(:image_file, "はSVG、PNG、AIファイルのみアップロード可能です")
     end
+  end
 
-    def svg_or_png_present
-      if !svg_file.attached? && !png_file.attached?
-        errors.add(:base, "SVGまたはPNGファイルを1つ以上アップロードしてください")
-      end
+  def svg_or_png_present
+    if !svg_file.attached? && !png_file.attached?
+      errors.add(:base, "SVGまたはPNGファイルを1つ以上アップロードしてください")
     end
-  end   
-end
+  end
+end   
+

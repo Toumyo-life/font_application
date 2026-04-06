@@ -1,2 +1,43 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+body {
+  margin: auto;
+}
+
+.navbar-navbar-fixed-top-navbar-inverse {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  position: relative;
+  border: solid;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+
+  // 右側メニュー
+  .nav-navbar-nav-navbar-right {
+    list-style: none;
+    margin-left: auto;
+    display: flex;
+    gap: 15px;
+
+    li {
+      padding-right: 20px;
+    }
+  }
+}
+
+a {
+  color: rgb(28, 28, 28);
+  text-decoration: none;
+
+  &:visited {
+    color: rgb(28, 28, 28);
+  }
+}
+
+#return {
+  list-style: none;
+  margin-left: auto;
+  justify-items: flex-start;
+}

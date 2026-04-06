@@ -3,18 +3,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = login(params[:session][:email], params[:session][:password])
-  
+    user = login(params[:email], params[:password])
+    
     if user
-      redirect_to root_path, notice: "ログインしました"
+      redirect_to root_path, notice: 'ログインしました'
     else
-      flash.now[:alert] = "ログインに失敗しました"
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = 'ログインに失敗しました'
+      render :new
     end
   end
 
   def destroy
     logout
-    redirect_to root_path, notice: "ログアウトしました", status: :see_other
+    redirect_to root_path, notice: 'ログアウトしました', status: :see_other
   end
 end

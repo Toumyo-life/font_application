@@ -1,0 +1,31 @@
+<div style="background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+  <div style="background-color: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px;">
+      <h2 style="text-align: center; margin-bottom: 1.5rem;">アカウント作成</h2>
+      <%= form_with model: @user, local: true do |f| %>
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :名前 %><br />
+        <%= f.text_field :last_name, style: "width: 30%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;", placeholder: '山田'%>
+        <%= f.text_field :first_name, style: "width: 30%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;", placeholder: '太郎' %>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :メールアドレス %><br />
+        <%= f.email_field :email, style: "width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;", placeholder: 'メールアドレス'%>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :パスワード %><br />
+        <%= f.password_field :password, style: "width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;", placeholder: 'パスワード'%>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <%= f.label :パスワード確認 %><br />
+      <%= f.password_field :password_confirmation, style: "width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;", placeholder: 'パスワード確認' %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "登録", style: "width: 100%; padding: 0.75rem; background-color: #383838; color: white; border: none; border-radius: 4px; cursor: pointer;" %>
+    </div>
+    <% end %>
+  </div>
+</div>

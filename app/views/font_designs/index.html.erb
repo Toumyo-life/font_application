@@ -1,1 +1,50 @@
-<h1>TOP</h1>
+<body class="custom-body">
+  <div class="container py-3">
+
+    <% if @font_designs.any? %>
+      <div class="d-flex flex-wrap gap-4 justify-content-center">
+
+        <% @font_designs.each do |font_design| %>
+          <div class="card p-2" style="width: 320px;">
+
+            <!-- 画像（中央寄せ） -->
+            <div class="text-center">
+              <%= link_to download_font_design_path(font_design) do %>
+
+                <% if font_design.svg_file.attached? %>
+                  <%= image_tag font_design.svg_file,
+                      style: "height:200px; width:100%; object-fit:contain;" %>
+                <% elsif font_design.png_file.attached? %>
+                  <%= image_tag font_design.png_file,
+                      style: "height:200px; width:100%; object-fit:contain;" %>
+                <% end %>
+
+              <% end %>
+            </div>
+
+            <!-- 名前 + タグ（左寄せ） -->
+            <div class="mt-2 text-start">
+
+              <p class="mb-1">
+                <%= font_design.user.last_name %>
+                <%= font_design.user.first_name %>
+              </p>
+
+              <% font_design.tags.each do |tag| %>
+                <span class="badge bg-secondary me-1">
+                  <%= tag.name %>
+                </span>
+              <% end %>
+
+            </div>
+
+          </div>
+        <% end %>
+
+      </div>
+    <% else %>
+      <p>フォントデザインが登録されていません。</p>
+    <% end %>
+
+  </div>
+</body>

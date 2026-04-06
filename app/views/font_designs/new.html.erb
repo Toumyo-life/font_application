@@ -1,0 +1,44 @@
+  <div style="background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+    <div style="background-color: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); width: 100%; max-width: 450px;">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 1.5rem;">フォントデザイン登録</h2>
+        
+        <%= form_with model: @font_design, url: font_designs_path, local: true do |f| %>
+          <% if @font_design.errors.any? %>
+            <div class="alert alert-danger">
+              <p><%= pluralize(@font_design.errors.count, "個のエラー") %>があります</p>
+              <ul>
+                <% @font_design.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          
+        <div class="mb-3">
+          <%= f.label :image_file, "フォント画像" %>
+          <%= f.file_field :image_file, 
+                          class: "form-control", 
+                          accept: 'image/svg+xml,.ai' %>
+        </div>
+          
+          <div class="mb-3">
+            <%= f.label :png_file, "PNGファイル" %>
+            <%= f.file_field :png_file, 
+                            class: "form-control", 
+                            accept: 'image/png' %>
+          </div>
+
+        <div class="field">
+          <%= label_tag :tag_names, 'タグ設定' %>
+          <%= text_field_tag :tag_names, '', 
+                            class: 'form-control',
+                            placeholder: '例: かわいい, シンプル' %>
+        </div>
+          
+          <%= f.submit "保存", class: "btn btn-primary" %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>

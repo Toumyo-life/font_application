@@ -1,0 +1,41 @@
+<div style="background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+  <div style="background-color: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); width: 100%; max-width: 900px;">
+    <div class="container text-center">
+      <h2>ダウンロード形式を選択</h2>
+
+      <div class="row align-items-center">
+
+        <!-- 左：画像 -->
+        <div class="col-md-6 text-center">
+          <% if @font_design.png_file.attached? %>
+            <%= image_tag @font_design.png_file, class: "img-fluid", style: "max-width:300px; border:1px #dcb89f solid;" %>
+          <% elsif @font_design.svg_file.attached? %>
+            <%= image_tag @font_design.svg_file, class: "img-fluid", style: "max-width:300px; border:1px #dcb89f solid;" %>
+          <% else %>
+            <%= image_tag "default.png", class: "img-fluid", style: "max-width:300px; border:1px #dcb89f solid;" %>
+          <% end %>
+        </div>
+
+        <!-- 右：ボタン -->
+        <div class="col-md-6" >
+          <p>ダウンロードしたい形式を選んでください</p>
+
+          <% if @font_design.png_file.attached? %>
+            <div class="mb-2">
+              <%= link_to "PNGをダウンロード",
+                  download_file_font_design_path(@font_design, type: "png"),
+                  class: "btn btn-primary w-50", style: "background-color: orange; border:1px #ffffff solid;" %>
+            </div>
+          <% end %>
+
+          <% if @font_design.svg_file.attached? %>
+            <div>
+              <%= link_to "SVGをダウンロード",
+                  download_file_font_design_path(@font_design, type: "svg"),
+                  class: "btn btn-success w-100" %>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+    </div>

@@ -1,0 +1,91 @@
+<div style="background-color: antiquewhite;">
+  <% content_for(:title, t('.title')) %>
+
+  <div class="container pt-3">
+
+    <!-- プロフィール -->
+  <div style="display: flex; text-align: left; justify-content: center;">
+      <div class="col-md-6 text-center">
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <!-- アバター -->
+            <div class="mb-3">
+              <div style="display: inline-block; padding: 10px; border-radius: 50%; ">
+                <% if @user.avatar.attached? %>
+                  <%= image_tag @user.avatar,
+                      style: "width:150px;height:150px;border-radius:50%;object-fit:cover;" %>
+                <% else %>
+                  <%= image_tag "default.png",
+                      style: "width:150px;height:150px;border-radius:50%;object-fit:cover;" %>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- プロフィール情報 -->
+            <table class="table text-start">
+              <tr>
+                <th><%= User.human_attribute_name(:email) %></th>
+                <td><%= @user.email %></td>
+              </tr>
+              <tr>
+                <th><%= User.human_attribute_name(:full_name) %></th>
+                <td><%= @user.full_name %></td>
+              </tr>
+            </table>
+            <%= link_to '編集', edit_profile_path, class: 'btn btn-success mb-3', style: "width: 80%; padding: 0.75rem; background-color: #383838; color: white; border: none; border-radius: 4px; cursor: pointer;" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 画像一覧 -->
+    <h2 style="text-align: center;">アップロードした画像</h2>
+
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+    <% if @font_designs.present? %>
+ <div class="row justify-content-center">
+
+  <% @font_designs.each do |font_design| %>
+
+    <div class="col-auto mb-4">
+
+      <div class="card" style="width: 300px;">
+
+        <%= link_to font_design_path(font_design) do %>
+
+          <% if font_design.png_file.attached? %>
+            <%= image_tag font_design.png_file,
+                style: "height:200px; width:100%; object-fit:cover;" %>
+
+          <% elsif font_design.svg_file.attached? %>
+            <%= image_tag font_design.svg_file,
+                style: "height:200px; width:100%; object-fit:cover;" %>
+
+          <% else %>
+            <%= image_tag "default.png",
+                style: "height:200px; width:100%; object-fit:cover;" %>
+          <% end %>
+
+        <% end %>
+
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <%= link_to '編集', edit_font_design_path(font_design), class: 'btn btn-sm btn-primary' %>
+            <%= link_to '削除', font_design_path(font_design),
+                data: { turbo_method: :delete, turbo_confirm: '削除しますか?' },
+                class: 'btn btn-sm btn-danger' %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  <% end %>
+
+</div>
+    <% else %>
+      <p class="text-muted text-center">まだ画像をアップロードしていません。</p>
+    <% end %>
+</div>

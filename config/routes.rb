@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
-  resources :font_designs, only: [:index, :new, :create, :show, :edit, :update, :destroy]do
+  resources :font_designs, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
     member do
       get :download
       get :download_file

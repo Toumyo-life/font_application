@@ -8,9 +8,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should post create" do
     # フィクスチャのユーザーでログインを試みる
-    post login_path, params: { 
-      email: users(:one).email, 
-      password: 'password'  # フィクスチャで設定したパスワード
+    post login_path, params: {
+      email: users(:one).email,
+      password: "password"  # フィクスチャで設定したパスワード
     }
     assert_response :redirect
     assert_redirected_to root_path  # ログイン後のリダイレクト先を確認
@@ -18,11 +18,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should delete destroy" do
     # まずログインしてからログアウトする
-    post login_path, params: { 
-      email: users(:one).email, 
-      password: 'password' 
+    post login_path, params: {
+      email: users(:one).email,
+      password: "password"
     }
-    
+
     delete logout_path
     assert_response :redirect
     assert_redirected_to root_path  # ログアウト後のリダイレクト先を確認

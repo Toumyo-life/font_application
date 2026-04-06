@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   root "font_designs#index"
 
   # ユーザー登録用
-  resources :users, only: [:new, :create]
+  resources :users, only: [ :new, :create ]
 
   # ログイン/ログアウト用
-  get 'login', to: 'sessions#new'
-  post 'login', to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
 end

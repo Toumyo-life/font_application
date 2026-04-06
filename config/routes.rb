@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :font_designs
+  get 'static_pages/terms'
   # トップページの設定
   root "font_designs#index"
 

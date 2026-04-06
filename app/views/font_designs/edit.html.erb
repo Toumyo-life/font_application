@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>フォントデザイン編集</h1>
+
+<%= form_with(model: @font_design, local: true, data: { turbo: false }, html: { multipart: true }) do |f| %>
+
+    <% if @font_design.errors.any? %>
+      <div class="error-messages">
+        <h2><%= pluralize(@font_design.errors.count, "error") %></h2>
+        <ul>
+          <% @font_design.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <!-- SVGファイル -->
+  <div class="field">
+    <%= f.label :svg_file, 'SVGファイル' %>
+    <%= f.file_field :svg_file, class: 'form-control' %>
+  </div>
+
+  <!-- PNGファイル -->
+  <div class="field">
+    <%= f.label :png_file, 'PNGファイル' %>
+    <%= f.file_field :png_file, class: 'form-control' %>
+  </div>
+
+  <!-- タグ設定 -->
+  <div class="field">
+    <%= label_tag :tag_names, 'タグ設定' %>
+    <%= text_field_tag :tag_names, @tag_names, class: 'form-control' %>
+  </div>
+
+  <%= f.submit '更新する', class: 'btn btn-primary' %>
+<% end %>
+</div>

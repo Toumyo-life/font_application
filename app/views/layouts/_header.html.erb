@@ -1,0 +1,50 @@
+<header class="border-bottom bg-white">
+  <div class="container">
+    <div class="row align-items-center py-2">
+
+      <!-- 左 -->
+      <div class="col text-start">
+        <%= link_to "戻る", root_path %>
+      </div>
+
+      <!-- 中央 -->
+      <div class="col text-center">
+        <%= link_to "mojimoji", root_path, id: "logo", class: "fw-bold fs-5 text-decoration-none" %>
+      </div>
+
+      <!-- 右 -->
+      <div class="col text-end">
+        <ul class="list-inline mb-0">
+
+          <li class="list-inline-item">
+            <%= link_to "利用規約", root_path %>
+          </li>
+
+          <% if current_user %>
+            <li class="list-inline-item">
+              <%= link_to "画像アップ", new_font_design_path %>
+            </li>
+            <li class="list-inline-item">
+              <%= link_to 'ログアウト', logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか?' } %>
+            </li>
+            <li class="list-inline-item">
+              <%= link_to "プロフィール", root_path %>
+            </li>
+          <% else %>
+            <li class="list-inline-item">
+              <%= link_to "画像アップ", login_path %>
+            </li>
+            <li class="list-inline-item">
+              <%= link_to "ログイン", login_path %>
+            </li>
+            <li class="list-inline-item">
+              <%= link_to "会員登録", new_user_path %>
+            </li>
+          <% end %>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</header>

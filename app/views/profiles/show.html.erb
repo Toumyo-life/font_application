@@ -59,8 +59,14 @@
                 style: "height:200px; width:100%; object-fit:cover;" %>
 
           <% elsif font_design.svg_file.attached? %>
-            <%= image_tag font_design.svg_file,
-                style: "height:200px; width:100%; object-fit:cover;" %>
+            <div style="height:200px; width:100%; overflow:auto; border:1px #dcb89f solid;">
+              <%= raw font_design.svg_file.download.encode(
+                "UTF-8",
+                invalid: :replace,
+                undef: :replace,
+                replace: ""
+              ) %>
+            </div>
 
           <% else %>
             <%= image_tag "default.png",

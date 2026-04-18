@@ -7,31 +7,31 @@ class FontDesign < ApplicationRecord
   has_many :tags, through: :font_design_tags
 
   validate :svg_or_png_present
+  validate :validate_svg_extension
 
-  # バリデーション(SVGまたはPNGのみ許可)
-  validates :svg_file, 
-            content_type: ['image/svg+xml', 'application/postscript', 'application/illustrator'],
-            size: { less_than: 10.megabytes },
-            if: -> { svg_file.attached? }
-                       
-  validates :png_file, 
-            content_type: ['image/png'],
-            size: { less_than: 10.megabytes },
-            if: -> { png_file.attached? }
+  validates :svg_file,
+    content_type: [
+      'image/svg+xml',
+      'text/plain',
+      'application/octet-stream'
+    ],
+    size: { less_than: 80.megabytes },
+    if: -> { svg_file.attached? }
+
+  validates :png_file,
+    content_type: ['image/png'],
+    size: { less_than: 10.megabytes },
+    if: -> { png_file.attached? }
+
   private
 
-  def acceptable_image_file
-    return unless image_file.attached?
+  def validate_svg_extension
+    return unless svg_file.attached?
 
-    # ファイルサイズのチェック
-    unless image_file.byte_size <= 10.megabytes
-      errors.add(:image_file, "は10MB以下にしてください")
-  end
+    ext = File.extname(svg_file.filename.to_s).downcase
 
-    # 拡張子のチェック
-    acceptable_types = %w[.svg .png .ai]
-    unless acceptable_types.include?(File.extname(image_file.filename.to_s).downcase)
-      errors.add(:image_file, "はSVG、PNG、AIファイルのみアップロード可能です")
+    unless [".svg", ".ai"].include?(ext)
+      errors.add(:svg_file, "はSVGまたはAIファイルのみアップロード可能です")
     end
   end
 

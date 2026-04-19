@@ -24,16 +24,14 @@
                 <% if font_design.png_file.attached? %>
                   <%= image_tag font_design.png_file,
                       style: "height:200px; width:100%; object-fit:cover;" %>
-
-                <% elsif font_design.svg_file.attached? %>
-                  <div style="height:200px; width:100%; overflow:auto; border:1px #dcb89f solid;">
-                    <%= raw font_design.svg_file.download.encode(
-                      "UTF-8",
-                      invalid: :replace,
-                      undef: :replace,
-                      replace: ""
-                    ) %>
-                  </div>
+                  <% elsif font_design.svg_file.attached? %>
+                    <div style="height:200px; width:100%; overflow:auto; border:1px #dcb89f solid;">
+                      <% begin %>
+                        <%= raw font_design.svg_file.download.encode("UTF-8", invalid: :replace, undef: :replace, replace: "?") %>
+                      <% rescue ActiveStorage::FileNotFoundError %>
+                        <p class="small text-muted">画像ファイルが見つかりません（再アップロードが必要です）</p>
+                      <% end %>
+                    </div>
 
                 <% else %>
                   <%= image_tag "default.png",

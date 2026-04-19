@@ -12,12 +12,10 @@ class FontDesignsController < ApplicationController
       q_original = params[:q]
       q_normalized = NKF.nkf('-w --hiragana -Z1', params[:q])
       q_kana = NKF.nkf('-w --katakana', params[:q])
-      # 1. joins に :user を追加して、usersテーブルと結合する
-      # 2. whereの中に users.last_name と users.first_name の条件を追加する
-      @font_designs = @font_designs.joins(:tags, :user)
+      @font_designs = @font_designs.joins(:tags)
                                    .where(
-                                    "tags.name LIKE ? OR tags.name LIKE ? OR tags.name LIKE ? OR users.last_name LIKE ? OR users.first_name LIKE ?",
-                                    "%#{q_original}%", "%#{q_normalized}%", "%#{q_kana}%", "%#{q_original}%", "%#{q_original}%"
+                                    "tags.name LIKE ? OR tags.name LIKE ? OR tags.name LIKE ?",
+                                    "%#{q_original}%", "%#{q_normalized}%", "%#{q_kana}%"
                                    )
                                    .distinct
     end

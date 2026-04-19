@@ -297,10 +297,10 @@ SEOで検索上位になれる
 - DB：SQL
 - デプロイ先：Render
 - 使用予定ライブラリ：
-Devise → ユーザー認証（会員登録・ログイン）
+
 ActiveStorage / Shrine / CarrierWave
 Pundit
-svg / Roo
+svg / Active Strage(ログイン認証)
 JavaScript / CSSのライブラリも含む
 Bootstrap / TailwindCSS → UI構築
 Stimulus / Turbo (Hotwire)

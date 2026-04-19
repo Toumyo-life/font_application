@@ -1,18 +1,12 @@
 class FontDesignsController < ApplicationController
-  before_action :require_login, only: [:download, :download_file]
   before_action :set_font_design, only: [:show, :edit, :update, :destroy, :download, :download_file]
-  before_action :require_login, except: [:index, :show, :download, :download_file]
+  before_action :require_login, except: [:index]
 
   def index
     @font_designs = FontDesign.includes(:user, :tags, svg_file_attachment: :blob, png_file_attachment: :blob)
   end
 
   def new
-    if current_user.nil?
-      flash[:notice] = "ログインが必要です"
-      redirect_to "/login"
-      return
-    end
     @font_design = FontDesign.new
   end
 
@@ -77,13 +71,6 @@ class FontDesignsController < ApplicationController
   private
 
   def set_font_design
-    # ログイン必須
-    unless logged_in?
-      flash[:notice] = "ログインが必要です"
-      redirect_to login_path
-      return
-    end
-    
     # downloadアクションは他のユーザーの画像もOK
     if action_name == 'download'
       @font_design = FontDesign.find(params[:id])
@@ -99,12 +86,13 @@ class FontDesignsController < ApplicationController
 
   # タグを保存するメソッドを追加
   def save_tags(font_design, tag_names_string)
+    # 空であれば処理を終了
     return if tag_names_string.blank?
-  
+    # 古いタグやリンクを削除
     font_design.tags.clear
-  
+    # ,で区切った部分を分ける、前後の空白を削除,空のデータがあれば削除
     tag_names = tag_names_string.split(',').map(&:strip).reject(&:blank?)
-  
+    # 既存のデータ(同じタグは)再利用する
     tag_names.each do |tag_name|
       tag = Tag.find_or_create_by(name: tag_name)
       font_design.tags << tag unless font_design.tags.include?(tag)

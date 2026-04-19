@@ -19,7 +19,7 @@
   <!-- SVGファイル -->
   <div class="field">
     <%= f.label :svg_file, 'SVGファイル' %>
-    <%= f.file_field :svg_file, class: 'form-control' %>
+    <%= f.file_field :svg_file, accept: '.svg,.ai', class: 'form-control' %>
   </div>
 
   <!-- PNGファイル -->

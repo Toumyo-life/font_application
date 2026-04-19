@@ -12,10 +12,14 @@ class FontDesign < ApplicationRecord
   validates :svg_file,
     content_type: [
       'image/svg+xml',
+      'application/pdf',
+      'application/postscript',
+      'application/x-adobe-indesign',
+      'application/illustrator',
       'text/plain',
       'application/octet-stream'
     ],
-    size: { less_than: 80.megabytes },
+    size: { less_than: 60.megabytes },
     if: -> { svg_file.attached? }
 
   validates :png_file,

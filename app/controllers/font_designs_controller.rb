@@ -9,12 +9,13 @@ class FontDesignsController < ApplicationController
       # もし検索ワード(params[:q])があれば、名前かタグ名で絞り込む
     if params[:q].present?
       # 検索ワードをカタカナ・ひらがなに変換（前述のNKFを使用）
-      q_hira = NKF.nkf('-w --hiragana', params[:q])
+      q_original = params[:q]
+      q_normalized = NKF.nkf('-w --hiragana -Z1', params[:q])
       q_kana = NKF.nkf('-w --katakana', params[:q])
       @font_designs = @font_designs.joins(:tags)
                                    .where(
-                                     "tags.name LIKE ? OR tags.name LIKE ? OR tags.name LIKE ?", 
-                                     "%#{params[:q]}%", "%#{q_hira}%", "%#{q_kana}%"
+                                     "tags.name LIKE ? OR tags.name LIKE ? OR tags.name LIKE ? OR users.first_name LIKE ? OR users.last_name LIKE ?",
+                                     "%#{params[:q]}%", "%#{q_normalized}%", "%#{q_kana}%", "%#{q_original}%", "%#{q_original}%"
                                    )
                                    .distinct
     end

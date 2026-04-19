@@ -15,7 +15,6 @@
         style: "max-width:300px; border:1px #dcb89f solid;" %>
 
   <% elsif @font_design.svg_file.attached? %>
-
     <div style="width:280px; height:200px; border:1px #dcb89f solid; display:inline-block; overflow:auto;">
       <%= raw @font_design.svg_file.download.encode(
         "UTF-8",

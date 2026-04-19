@@ -1,9 +1,23 @@
+require 'nkf'
 class FontDesignsController < ApplicationController
   before_action :set_font_design, only: [:show, :edit, :update, :destroy, :download, :download_file]
   before_action :require_login, except: [:index]
 
   def index
     @font_designs = FontDesign.includes(:user, :tags, svg_file_attachment: :blob, png_file_attachment: :blob)
+
+      # もし検索ワード(params[:q])があれば、名前かタグ名で絞り込む
+    if params[:q].present?
+      # 検索ワードをカタカナ・ひらがなに変換（前述のNKFを使用）
+      q_hira = NKF.nkf('-w --hiragana', params[:q])
+      q_kana = NKF.nkf('-w --katakana', params[:q])
+      @font_designs = @font_designs.joins(:tags)
+                                   .where(
+                                     "tags.name LIKE ? OR tags.name LIKE ? OR tags.name LIKE ?", 
+                                     "%#{params[:q]}%", "%#{q_hira}%", "%#{q_kana}%"
+                                   )
+                                   .distinct
+    end
   end
 
   def new
@@ -32,7 +46,6 @@ class FontDesignsController < ApplicationController
   end
 
   def update
-  
     if @font_design.update(font_design_params)
       save_tags(@font_design, params[:tag_names])
       redirect_to @font_design, notice: "更新しました"

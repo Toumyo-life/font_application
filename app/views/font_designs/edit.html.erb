@@ -1,7 +1,7 @@
   <div style="background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
     <div style="background-color: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); width: 100%; max-width: 450px;">
 <div class="container">
-  <h2>フォントデザイン編集</h2>
+  <h2>タグ編集</h2>
 
 <%= form_with(model: @font_design, local: true, data: { turbo: false }, html: { multipart: true }) do |f| %>
 
@@ -15,18 +15,6 @@
         </ul>
       </div>
     <% end %>
-
-  <!-- SVGファイル -->
-  <div class="field">
-    <%= f.label :svg_file, 'SVGファイル' %>
-    <%= f.file_field :svg_file, accept: '.svg,.ai', class: 'form-control' %>
-  </div>
-
-  <!-- PNGファイル -->
-  <div class="field">
-    <%= f.label :png_file, 'PNGファイル' %>
-    <%= f.file_field :png_file, class: 'form-control' %>
-  </div>
 
   <!-- タグ設定 -->
   <div class="field">

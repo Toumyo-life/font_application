@@ -12,10 +12,6 @@ class FontDesign < ApplicationRecord
   validates :svg_file,
     content_type: [
       'image/svg+xml',
-      'application/pdf',
-      'application/postscript',
-      'application/x-adobe-indesign',
-      'application/illustrator',
       'text/plain',
       'application/octet-stream'
     ],
@@ -34,8 +30,8 @@ class FontDesign < ApplicationRecord
 
     ext = File.extname(svg_file.filename.to_s).downcase
 
-    unless [".svg", ".ai"].include?(ext)
-      errors.add(:svg_file, "はSVGまたはAIファイルのみアップロード可能です")
+    unless [".svg"].include?(ext)
+      errors.add(:svg_file, "はSVGファイルのみアップロード可能です")
     end
   end
 

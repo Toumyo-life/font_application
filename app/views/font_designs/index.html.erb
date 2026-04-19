@@ -1,6 +1,16 @@
 <body class="custom-body" style="background-color: antiquewhite;">
   <div class="container py-3">
 
+    <div class="container mb-4">
+      <%= form_with url: root_path, method: :get, local: true, class: "d-flex gap-2 justify-content-center" do |f| %>
+        <%= f.text_field :q, value: params[:q], placeholder: "タグで検索", class: "form-control", style: "max-width: 400px;" %>
+        <%= f.submit "検索", class: "btn btn-primary", style: "background-color: orange; border: none;" %>
+        <% if params[:q].present? %>
+          <%= link_to "クリア", root_path, class: "btn btn-outline-secondary" %>
+        <% end %>
+      <% end %>
+    </div>
+
     <% if @font_designs.any? %>
       <div class="d-flex flex-wrap gap-4 justify-content-center">
 
@@ -11,17 +21,24 @@
             <div class="text-center">
               <%= link_to download_font_design_path(font_design) do %>
 
-                <% if font_design.svg_file.attached? %>
-                  <!-- SVGを埋め込み表示 -->
-                  <div style="height:200px; overflow:auto;">
-                    <%= raw font_design.svg_file.download.encode("UTF-8", invalid: :replace, undef: :replace, replace: "") %>
+                <% if font_design.png_file.attached? %>
+                  <%= image_tag font_design.png_file,
+                      style: "height:200px; width:100%; object-fit:cover;" %>
+
+                <% elsif font_design.svg_file.attached? %>
+                  <div style="height:200px; width:100%; overflow:auto; border:1px #dcb89f solid;">
+                    <%= raw font_design.svg_file.download.encode(
+                      "UTF-8",
+                      invalid: :replace,
+                      undef: :replace,
+                      replace: ""
+                    ) %>
                   </div>
 
-                <% elsif font_design.png_file.attached? %>
-                  <%= image_tag url_for(font_design.png_file),
-                      style: "height:200px; width:100%; object-fit:contain;" %>
+                <% else %>
+                  <%= image_tag "default.png",
+                      style: "height:200px; width:100%; object-fit:cover;" %>
                 <% end %>
-
               <% end %>
             </div>
 

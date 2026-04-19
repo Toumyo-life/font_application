@@ -6,7 +6,7 @@
       <div class="row align-items-center">
 
         <!-- 左：画像 -->
-<div class="col-md-6 text-center">
+<div class="col-md-6">
 
   <% if @font_design.png_file.attached? %>
 
@@ -15,8 +15,7 @@
         style: "max-width:300px; border:1px #dcb89f solid;" %>
 
   <% elsif @font_design.svg_file.attached? %>
-
-    <div style="max-width:300px; height:200px; border:1px #dcb89f solid; display:inline-block; overflow:auto;">
+    <div style="width:280px; height:200px; border:1px #dcb89f solid; display:inline-block; overflow:auto;">
       <%= raw @font_design.svg_file.download.encode(
         "UTF-8",
         invalid: :replace,

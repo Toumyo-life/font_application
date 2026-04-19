@@ -15,7 +15,7 @@ class FontDesign < ApplicationRecord
       'text/plain',
       'application/octet-stream'
     ],
-    size: { less_than: 80.megabytes },
+    size: { less_than: 60.megabytes },
     if: -> { svg_file.attached? }
 
   validates :png_file,
@@ -30,8 +30,8 @@ class FontDesign < ApplicationRecord
 
     ext = File.extname(svg_file.filename.to_s).downcase
 
-    unless [".svg", ".ai"].include?(ext)
-      errors.add(:svg_file, "はSVGまたはAIファイルのみアップロード可能です")
+    unless [".svg"].include?(ext)
+      errors.add(:svg_file, "はSVGファイルのみアップロード可能です")
     end
   end
 
